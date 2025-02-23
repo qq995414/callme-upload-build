@@ -12,11 +12,12 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// 監聽背景推播
 messaging.onBackgroundMessage((payload) => {
-  console.log("收到背景推播: ", payload);
+  console.log("📩 收到背景推播:", payload);
+
   self.registration.showNotification(payload.notification.title, {
     body: payload.notification.body,
-    icon: "/firebase-logo.png",
+    icon: payload.notification.icon || "/firebase-logo.png",
+    requireInteraction: true,
   });
 });
